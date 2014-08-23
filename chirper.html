@@ -20,11 +20,26 @@
 	Crafty.background("#00FF00");
 	var player = Crafty.e("PC");
 	Crafty.e("Delay, 2D").delay(function() {
+		var xVal, yVal;
 		if(Crafty.math.randomInt(0,1)) {
+				xVal = Crafty.math.randomInt(0, screenWidth)
 			if(Crafty.math.randomInt(0,1)) {
-				var enemy = Crafty.e("Enemy").setTarget(player);
+				yVal = 0;
+			}
+			else {
+				yVal = screenHeight - 20;
 			}
 		}
+		else {
+				yVal = Crafty.math.randomInt(0, screenHeight)
+			if(Crafty.math.randomInt(0,1)) {
+				xVal = 0
+			}
+			else {
+				xVal = screenWidth - 20;
+			}
+		}
+		Crafty.e("Enemy").attr({x: xVal, y: yVal, w: 20, h: 20}).setTarget(player);
 	}, 900, -1);
 	});
 	Crafty.scene("GameOver", function() {
