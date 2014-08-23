@@ -39,7 +39,9 @@ Crafty.c("PC", {
 	},
 	score: function() {
 		this.points += 1;
-		console.log("You're score is 1!");
+		if(this.points >= 20) {
+			Crafty.scene("ClosingIn");
+		}
 	},
 	changeDirection: function(direction) {
 		switch(direction) {
@@ -68,6 +70,7 @@ Crafty.c("LaserBlast", {
 		this.h = 10;
 		this.velocity = {x: 5, y: 0};
 		this.bind("EnterFrame", this.update);
+		Crafty.audio.play("Laser");
 	},
 	update: function() {
 		this.x += this.velocity.x;

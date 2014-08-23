@@ -8,11 +8,26 @@
 	var screenWidth = 700;
 	var screenHeight = 500;
 	Crafty.init(screenWidth, screenHeight);
+	Crafty.audio.add("Laser", "Laser.wav");
+	Crafty.scene("BuffaloTrace", function() {
 	Crafty.background("#0000FF");
 	Crafty.e("PC");
 	Crafty.e("Delay").delay(function() {
 		Crafty.e("Enemy");
 	}, 1000, -1);
+	});
+	Crafty.scene("ClosingIn", function() {
+	Crafty.background("#00FF00");
+	Crafty.e("PC");
+	Crafty.e("Delay").delay(function() {
+		if(Crafty.math.randomInt(0,1)) {
+			if(Crafty.math.randomInt(0,1)) {
+				Crafty.e("Enemy");
+			}
+		}
+	}, 900, -1);
+	});
+	Crafty.scene("BuffaloTrace");
 	</script>
 </body>
 </html>
