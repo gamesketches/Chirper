@@ -6,7 +6,6 @@ Crafty.c("PC", {
 	points: 0,
 	init: function() {
 		this.addComponent("2D, DOM, Collision, Fourway, Color, Keyboard");
-		this.color("#FF0000");
 		this.fourway(4);
 		this.attr({x: 20, y: 20, w:20, h:20});
 		this.bind("EnterFrame", this.update);
@@ -110,8 +109,8 @@ Crafty.c("LaserBlast", {
 Crafty.c("Enemy", {
 	target: false,
 	init: function() {
-		this.addComponent("2D, DOM, Collision, Color");
-		this.color("#00FFFF");
+		this.addComponent("2D, DOM, Collision, Color, SpriteAnimation, BisonSprite");
+		//this.color("#00FFFF");
 		this.attr({x:680, y: Crafty.math.randomInt(0, 480), w: 20, h: 20});
 		this.collision(new Crafty.polygon([0,0],[this.w,0],[this.w, this.h], [0,this.h]));
 		this.onHit("LaserBlast", function() {
@@ -119,6 +118,8 @@ Crafty.c("Enemy", {
 			this.destroy();
 		});
 		this.bind("EnterFrame", this.update);
+		this.reel('Movement', 400, 0,0,2);
+		this.animate("Movement", -1);
 	},
 	update: function() {
 		if(this.target) {
