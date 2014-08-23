@@ -10,7 +10,9 @@
 	Crafty.init(screenWidth, screenHeight);
 	Crafty.background("#0000FF");
 	Crafty.e("PC");
-	Crafty.e("Enemy");
+	Crafty.e("Delay").delay(function() {
+		Crafty.e("Enemy");
+	}, 1000, -1);
 	</script>
 </body>
 </html>

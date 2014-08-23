@@ -3,19 +3,21 @@
 Crafty.c("PC", {
 	facing: {x:0, y:1},
 	laserHeat: 0,
+	points: 0,
 	init: function() {
 		this.addComponent("2D, DOM, Collision, Fourway, Color,Keyboard");
 		this.color("#FF0000");
 		this.fourway(4);
 		this.attr({x: 20, y: 20, w:20, h:20});
 		this.bind("EnterFrame", this.update);
+		this.bind("bisonKilled", this.score);
 	},
 	update: function() {
 		if(this.isDown('SPACE')){
 			if(!this.laserHeat) {
-				var dude = Crafty.e("LaserBlast")
+				Crafty.e("LaserBlast")
 				.attr({x: this.x, y: this.y})
-				.direction(this.facing);
+				.direction(this.facing.x, this.facing.y);
 				this.laserHeat = 15;
 			}
 		}
@@ -34,6 +36,10 @@ Crafty.c("PC", {
 		if(this.laserHeat) {
 			this.laserHeat -= 1;
 		}
+	},
+	score: function() {
+		this.points += 1;
+		console.log("You're score is 1!");
 	},
 	changeDirection: function(direction) {
 		switch(direction) {
@@ -59,7 +65,8 @@ Crafty.c("LaserBlast", {
 		this.addComponent("2D, DOM, Collision, Color");
 		this.color("#FFFF00");
 		this.w = 40;
-		this. h = 10;
+		this.h = 10;
+		this.velocity = {x: 5, y: 0};
 		this.bind("EnterFrame", this.update);
 	},
 	update: function() {
@@ -69,9 +76,9 @@ Crafty.c("LaserBlast", {
 			this.destroy();
 		}
 	},
-	direction: function(way) {
-		this.velocity.x = 5 * way.x;
-		this.velocity.y = 5 * way.y;
+	direction: function(x, y) {
+		this.velocity.x = 5 * x;
+		this.velocity.y = 5 * y;
 		if(this.velocity.x){
 			this.w = 40;
 			this.h = 10;
@@ -87,6 +94,18 @@ Crafty.c("Enemy", {
 	init: function() {
 		this.addComponent("2D, DOM, Collision, Color");
 		this.color("#00FFFF");
-		this.attr({x:680, y: 480, w: 20, h: 20});
+		this.attr({x:680, y: Crafty.math.randomInt(0, 480), w: 20, h: 20});
+		this.collision(new Crafty.polygon([0,0],[this.w,0],[this.w, this.h], [0,this.h]));
+		this.onHit("LaserBlast", function() {
+			Crafty.trigger("bisonKilled");
+			this.destroy();
+		});
+		this.bind("EnterFrame", this.update);
+	},
+	update: function() {
+		this.x -= 1;
+		if(this.x - this.w < 0) {
+			this.destroy();
+		}
 	}
 });
