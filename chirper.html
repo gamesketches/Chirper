@@ -8,24 +8,30 @@
 	var screenWidth = 700;
 	var screenHeight = 500;
 	Crafty.init(screenWidth, screenHeight);
-	Crafty.audio.add("Laser", "Laser.wav");
+	Crafty.audio.add("Laser", "laser.wav");
 	Crafty.scene("BuffaloTrace", function() {
 	Crafty.background("#0000FF");
 	Crafty.e("PC");
-	Crafty.e("Delay").delay(function() {
+	Crafty.e("Delay, 2D").delay(function() {
 		Crafty.e("Enemy");
 	}, 1000, -1);
 	});
 	Crafty.scene("ClosingIn", function() {
 	Crafty.background("#00FF00");
-	Crafty.e("PC");
-	Crafty.e("Delay").delay(function() {
+	var player = Crafty.e("PC");
+	Crafty.e("Delay, 2D").delay(function() {
 		if(Crafty.math.randomInt(0,1)) {
 			if(Crafty.math.randomInt(0,1)) {
-				Crafty.e("Enemy");
+				var enemy = Crafty.e("Enemy").setTarget(player);
 			}
 		}
 	}, 900, -1);
+	});
+	Crafty.scene("GameOver", function() {
+		Crafty.background("#000000");
+		Crafty.e("2D, DOM, Text")
+			.attr({ x: screenWidth / 2, y: screenHeight / 2 })
+			.text("Game Over!").textFont({size: '30px'}).textColor("FF0000");
 	});
 	Crafty.scene("BuffaloTrace");
 	</script>

@@ -11,6 +11,10 @@ Crafty.c("PC", {
 		this.attr({x: 20, y: 20, w:20, h:20});
 		this.bind("EnterFrame", this.update);
 		this.bind("bisonKilled", this.score);
+		this.collision(new Crafty.polygon([0, 0], [this.w, 0], [this.w, this.h], [0, this.h]));
+		this.onHit("Enemy", function() {
+			Crafty.scene("GameOver");
+		});
 	},
 	update: function() {
 		if(this.isDown('SPACE')){
@@ -94,6 +98,7 @@ Crafty.c("LaserBlast", {
 });
 
 Crafty.c("Enemy", {
+	target: false,
 	init: function() {
 		this.addComponent("2D, DOM, Collision, Color");
 		this.color("#00FFFF");
@@ -106,9 +111,28 @@ Crafty.c("Enemy", {
 		this.bind("EnterFrame", this.update);
 	},
 	update: function() {
+		if(this.target) {
+			if(this.target.x < this.x) {
+				this.x -= 1;
+			}
+			else if(this.target.x > this.x) {
+				this.x += 1;
+			}
+			if(this.target.y < this.y) {
+				this.y -= 1;
+			}
+			else if(this.target.y > this.y) {
+				this.y += 1;
+			}
+		}
+		else {
 		this.x -= 1;
 		if(this.x - this.w < 0) {
 			this.destroy();
+			}
 		}
+	},
+	setTarget: function(target) {
+		this.target = target;
 	}
 });
