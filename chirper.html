@@ -9,6 +9,7 @@
 	var screenHeight = 500;
 	Crafty.init(screenWidth, screenHeight);
 	Crafty.audio.add("Laser", "laser.wav");
+	Crafty.sprite(20, 20, "alien.png", {AlienSprite: [0,0]});//, LeftAlien: [2,0], UpAlien: [0, 1], DownAlien: [2, 1]});
 	Crafty.scene("BuffaloTrace", function() {
 	Crafty.background("#0000FF");
 	Crafty.e("PC");

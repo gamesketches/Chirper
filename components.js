@@ -5,7 +5,7 @@ Crafty.c("PC", {
 	laserHeat: 0,
 	points: 0,
 	init: function() {
-		this.addComponent("2D, DOM, Collision, Fourway, Color,Keyboard");
+		this.addComponent("2D, DOM, Collision, Fourway, Color, Keyboard");
 		this.color("#FF0000");
 		this.fourway(4);
 		this.attr({x: 20, y: 20, w:20, h:20});
@@ -15,6 +15,12 @@ Crafty.c("PC", {
 		this.onHit("Enemy", function() {
 			Crafty.scene("GameOver");
 		});
+		this.addComponent("AlienSprite, SpriteAnimation").reel('WalkRight', 400, 0,0,2);
+		this.reel('WalkLeft', 400, 2,0,2);
+		this.reel('WalkUp', 400, 0,1,2);
+		this.reel('WalkDown', 400, 2,1,2);
+		this.animate('WalkRight', -1);
+
 	},
 	update: function() {
 		if(this.isDown('SPACE')){
@@ -51,15 +57,19 @@ Crafty.c("PC", {
 		switch(direction) {
 			case 'RIGHT':
 				this.facing = {x: 1, y:0};
+				this.animate('WalkRight', -1);
 				break;
 			case 'LEFT':
 				this.facing = {x: -1, y:0};
+				this.animate('WalkLeft', -1);
 				break;
 			case 'DOWN':
 				this.facing = {x: 0, y: 1};
+				this.animate('WalkDown', -1);
 				break;
 			case 'UP':
 				this.facing = {x: 0, y: -1};
+				this.animate('WalkUp', -1);
 				break;
 		}
 	},
