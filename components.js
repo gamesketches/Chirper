@@ -49,7 +49,7 @@ Crafty.c("PC", {
 	score: function() {
 		this.points += 1;
 		if(this.points >= 20) {
-			Crafty.scene("ClosingIn");
+			Crafty.scene("Transition");
 		}
 	},
 	changeDirection: function(direction) {
@@ -110,7 +110,6 @@ Crafty.c("Enemy", {
 	target: false,
 	init: function() {
 		this.addComponent("2D, DOM, Collision, Color, SpriteAnimation, BisonSprite");
-		//this.color("#00FFFF");
 		this.attr({x:680, y: Crafty.math.randomInt(0, 480), w: 20, h: 20});
 		this.collision(new Crafty.polygon([0,0],[this.w,0],[this.w, this.h], [0,this.h]));
 		this.onHit("LaserBlast", function() {
@@ -123,17 +122,21 @@ Crafty.c("Enemy", {
 	},
 	update: function() {
 		if(this.target) {
-			if(this.target.x < this.x) {
-				this.x -= 1;
-			}
-			else if(this.target.x > this.x) {
-				this.x += 1;
-			}
 			if(this.target.y < this.y) {
 				this.y -= 1;
+				this.animate("MoveUp", -1);
 			}
 			else if(this.target.y > this.y) {
 				this.y += 1;
+				this.animate("MoveDown", -1);
+			}
+			if(this.target.x < this.x) {
+				this.x -= 1;
+				this.animate("MoveLeft", -1);
+			}
+			else if(this.target.x > this.x) {
+				this.x += 1;
+				this.animate("MoveRight", -1);
 			}
 		}
 		else {
@@ -145,5 +148,11 @@ Crafty.c("Enemy", {
 	},
 	setTarget: function(target) {
 		this.target = target;
+		this.removeComponent("BisonSprite");
+		this.addComponent("CreepyHead");
+		this.reel("MoveDown", 1000, 0,0,1);
+		this.reel("MoveRight", 1000, 1,0,1);
+		this.reel("MoveLeft", 1000, 0,1,1);
+		this.reel("MoveUp", 1000, 1,1,1);
 	}
 });

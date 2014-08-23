@@ -11,6 +11,35 @@
 	Crafty.audio.add("Laser", "laser.wav");
 	Crafty.sprite(20, 20, "alien.png", {AlienSprite: [0,0]});
 	Crafty.sprite(20, 20, "bison.png", {BisonSprite: [0,0]});
+	Crafty.sprite(20, 20, "creepyHead.png", {CreepyHead: [0,0]});
+	Crafty.scene("Intro", function() {
+		Crafty.background("#000000");
+		var chirps = Crafty.e("2D, DOM, Text, Delay")
+			.attr({ x: 100, y: screenHeight / 2 })
+			.text("Please RT! I need some Ganymede Buffalo heads and Blue Skull Eyeballs For my mother!").textFont({size: '30px'}).textColor("#FFFFFF")
+			.delay(function() {
+				this.text("@earthgirl I can help you out, lemme rustle some up then I'll send it via Galaxy Post");
+				this.delay(function() {
+					Crafty.scene("BuffaloTrace");
+				}, 5000);
+			}, 5000);
+	});
+	Crafty.scene("Transition", function() {
+		Crafty.background("#000000");
+		var chirps = Crafty.e("2D, DOM, Text, Delay")
+			.attr({ x: 100, y: screenHeight / 2})
+			.text("@earthgirl I got the heads, I'll send 'em on the next shuttle out :)").textFont({size: '30px'}).textColor("#FFFFFF")
+			.delay(function() {
+					this.text("@earthgirl @alienbrosky I'm on Mercury, can get you those Eyeballs");
+					this.delay(function() {
+						this.text(".@alienbrosky @dudemerc Thanks so much guys, love the chirperverse!");
+						this.delay(function() {
+							Crafty.scene("ClosingIn");
+						}, 5000);
+					}, 5000);
+			}, 5000);
+
+	});
 	Crafty.scene("BuffaloTrace", function() {
 	Crafty.background("#0000FF");
 	Crafty.e("PC");
@@ -50,7 +79,7 @@
 			.attr({ x: screenWidth / 2, y: screenHeight / 2 })
 			.text("Game Over!").textFont({size: '30px'}).textColor("FF0000");
 	});
-	Crafty.scene("BuffaloTrace");
+	Crafty.scene("Intro");
 	</script>
 </body>
 </html>
