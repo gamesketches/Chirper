@@ -92,7 +92,7 @@ Crafty.c("LaserBlast", {
 	update: function() {
 		this.x += this.velocity.x;
 		this.y += this.velocity.y;
-		if(this.x > 700 || this.x - this.w < 0 || this.y > 500 || this.y - this.h < 0){
+		if(this.x > 700 || this.x - this.w < 0 || this.y > 500 || this.y + this.h < 0){
 			this.destroy();
 		}
 	},
