@@ -128,19 +128,19 @@ Crafty.c("Enemy", {
 		if(this.target) {
 			if(this.target.y < this.y) {
 				this.y -= 1;
-				this.animate("MoveUp", -1);
+				this.sprite(1,1,1,1);
 			}
 			else if(this.target.y > this.y) {
 				this.y += 1;
-				this.animate("MoveDown", -1);
+				this.sprite(0,0,1,1);
 			}
 			if(this.target.x < this.x) {
 				this.x -= 1;
-				this.animate("MoveLeft", -1);
+				this.sprite(0,1,1,1);
 			}
 			else if(this.target.x > this.x) {
 				this.x += 1;
-				this.animate("MoveRight", -1);
+				this.sprite(1,0,1,1);
 			}
 		}
 		else {
@@ -152,11 +152,7 @@ Crafty.c("Enemy", {
 	},
 	setTarget: function(target) {
 		this.target = target;
-		this.removeComponent("BisonSprite");
+		this.removeComponent("BisonSprite, SpriteAnimation");
 		this.addComponent("CreepyHead");
-		this.reel("MoveDown", 1000, 0,0,1);
-		this.reel("MoveRight", 1000, 1,0,1);
-		this.reel("MoveLeft", 1000, 0,1,1);
-		this.reel("MoveUp", 1000, 1,1,1);
 	}
 });

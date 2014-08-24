@@ -21,8 +21,8 @@
 				this.text("@earthgirl I can help you out, lemme rustle some up then I'll send it via Galaxy Post");
 				this.delay(function() {
 					Crafty.scene("BuffaloTrace");
-				}, 5000);
-			}, 5000);
+				}, 4000);
+			}, 4000);
 	});
 	Crafty.scene("Transition", function() {
 		Crafty.background("#000000");
@@ -35,14 +35,15 @@
 						this.text(".@alienbrosky @dudemerc Thanks so much guys, love the chirperverse!");
 						this.delay(function() {
 							Crafty.scene("ClosingIn");
-						}, 5000);
-					}, 5000);
-			}, 5000);
+						}, 4000);
+					}, 4000);
+			}, 4000);
 
 	});
 	Crafty.scene("BuffaloTrace", function() {
 	Crafty.background("#0000FF");
 	Crafty.e("PC");
+	var enemiesMade = 0;
 	Crafty.e("Delay, 2D").delay(function() {
 		Crafty.e("Enemy");
 	}, 1000, -1);
