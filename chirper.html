@@ -12,10 +12,29 @@
 	Crafty.sprite(20, 20, "alien.png", {AlienSprite: [0,0]});
 	Crafty.sprite(20, 20, "bison.png", {BisonSprite: [0,0]});
 	Crafty.sprite(20, 20, "creepyHead.png", {CreepyHead: [0,0]});
+	Crafty.scene("Title", function() {
+		Crafty.background("#000000");
+		Crafty.bind("KeyDown", function() {
+			Crafty.unbind("KeyDown");
+			Crafty.scene("Intro");
+		});
+		var title = Crafty.e("2D, DOM, Text")
+			.attr({x: 50, y: 100, w: 500})
+			.text("Chirperverse").textFont({size: '50px'}).textColor("#FFFFFF");
+		var pressStart = Crafty.e("2D, DOM, Text")
+			.attr({x: 100, y: 300, w: 400})
+			.text("Press Any Key").textFont({size: '20px'}).textColor("#FFFFFF")
+			.delay(function() {
+				this.textColor("#000000");
+				this.delay(function() {
+					this.textColor("#FFFFFF");
+				}, 300);
+			}, 600);
+	});
 	Crafty.scene("Intro", function() {
 		Crafty.background("#000000");
 		var chirps = Crafty.e("2D, DOM, Text, Delay")
-			.attr({ x: 100, y: screenHeight / 2 })
+			.attr({ x: 100, y: screenHeight / 2 , w: 500})
 			.text("Please RT! I need some Ganymede Buffalo heads and Blue Skull Eyeballs For my mother!").textFont({size: '30px'}).textColor("#FFFFFF")
 			.delay(function() {
 				this.text("@earthgirl I can help you out, lemme rustle some up then I'll send it via Galaxy Post");
@@ -27,7 +46,7 @@
 	Crafty.scene("Transition", function() {
 		Crafty.background("#000000");
 		var chirps = Crafty.e("2D, DOM, Text, Delay")
-			.attr({ x: 100, y: screenHeight / 2})
+			.attr({ x: 100, y: screenHeight / 2, w: 500})
 			.text("@earthgirl I got the heads, I'll send 'em on the next shuttle out :)").textFont({size: '30px'}).textColor("#FFFFFF")
 			.delay(function() {
 					this.text("@earthgirl @alienbrosky I'm on Mercury, can get you those Eyeballs");
@@ -80,7 +99,7 @@
 			.attr({ x: screenWidth / 2, y: screenHeight / 2 })
 			.text("Game Over!").textFont({size: '30px'}).textColor("FF0000");
 	});
-	Crafty.scene("Intro");
+	Crafty.scene("Title");
 	</script>
 </body>
 </html>
