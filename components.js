@@ -4,6 +4,7 @@ Crafty.c("PC", {
 	facing: {x:0, y:1},
 	laserHeat: 0,
 	points: 0,
+	scoreTally: null,
 	init: function() {
 		this.addComponent("2D, DOM, Collision, Fourway, Color, Keyboard");
 		this.fourway(4);
@@ -19,6 +20,8 @@ Crafty.c("PC", {
 		this.reel('WalkUp', 400, 0,1,2);
 		this.reel('WalkDown', 400, 2,1,2);
 		this.animate('WalkRight', -1);
+		this.scoreTally = Crafty.e("2D, DOM, Text").attr({x: 10, y: 460})
+				 .text(0).textColor("#FF0000").textFont({size:'30px'});
 
 	},
 	update: function() {
@@ -48,6 +51,7 @@ Crafty.c("PC", {
 	},
 	score: function() {
 		this.points += 1;
+		this.scoreTally.text(this.points);
 		if(this.points >= 20) {
 			Crafty.scene("Transition");
 		}
